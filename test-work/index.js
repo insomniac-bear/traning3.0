@@ -11,16 +11,29 @@ const s = Number(data[3]);
 
 let result;
 
-const modForRows = n % 2 === 0 ? 0 : 1;
-const countOfRows = Math.floor(n / 2) + modForRows;
-const modForFillVariants = k % 2 === 0 ? 0 : 1;
-const rowsForFullRound = Math.floor(k / 2) + modForFillVariants;
+const peterMod = s === 2 ? 0 : 1;
 
-const countsOfRowAfterPeter = countOfRows - r;
+const nextPlaceWithVariant = r * 2 - peterMod + k;
+const beforePlaceWithVariant = r * 2 - peterMod - k;
 
-console.log(rowsForFullRound);
-const isVariantOfPeterRepeat = countsOfRowAfterPeter && countsOfRowAfterPeter - rowsForFullRound >= 0 ? true : false;
+if (nextPlaceWithVariant > n && beforePlaceWithVariant <= 0) {
+  result = -1;
+} else {
+  const nextRowIsFill = nextPlaceWithVariant % 2 > 0 ? 1 : 0;
+  const nextRowWithVariant = Math.floor(nextPlaceWithVariant / 2) + nextRowIsFill;
+  const nextSideWithVariant = nextPlaceWithVariant % 2 === 0 ? 2 : 1;
 
-console.log(isVariantOfPeterRepeat)
+  const beforeRowIsFill = beforePlaceWithVariant % 2 > 0 ? 1 : 0;
+  const beforeRowWithVariant = Math.floor(beforePlaceWithVariant / 2) + beforeRowIsFill;
+  const beforeSideWithVariant = beforePlaceWithVariant % 2 === 0 ? 2 : 1;
 
-// fs.writeFileSync("output.txt", result.toString());
+  if (nextPlaceWithVariant > n) {
+    result = `${beforeRowWithVariant} ${beforeSideWithVariant}`;
+  } else if (nextRowWithVariant - r <= r - beforeRowWithVariant) {
+    result = `${nextRowWithVariant} ${nextSideWithVariant}`;
+  } else {
+    result = `${beforeRowWithVariant} ${beforeSideWithVariant}`;
+  }
+}
+
+fs.writeFileSync("output.txt", result.toString());

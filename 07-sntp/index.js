@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const revertToSecond = (arr) => {
   return (Number(arr[0]) * 60 + Number(arr[1])) * 60 + Number(arr[2]);
 }
@@ -36,32 +34,8 @@ const fn = (fileContent) => {
   return revertToFoolTime(exactInputTimeInSeconds);
 }
 
-
-// let fileContent = fs.readFileSync('input.txt', 'utf8');
-let result;
-
 process.stdin.on('data', data => {
   res = fn(data);
   process.stdout.write(res + '');
   process.exit();
 });
-
-
-// const data = fileContent.toString().split('\n');
-
-// const sended = data[0].split(':');
-// const sendedInSeconds = revertToSecond(sended);
-
-// const exactTime = data[1].split(':');
-// const exactTimeInSeconds = revertToSecond(exactTime);
-
-// const incomingTime = data[2].split(':');
-// const incomingTimeInSeconds = revertToSecond(incomingTime);
-
-// const timeToDelayInSeconds = incomingTimeInSeconds > sendedInSeconds ? Math.round((incomingTimeInSeconds - sendedInSeconds) / 2) : Math.round(((incomingTimeInSeconds + 24 * 60 * 60) - sendedInSeconds) / 2);
-
-// const exactInputTimeInSeconds = exactTimeInSeconds + timeToDelayInSeconds;
-
-// const result = revertToFoolTime(exactInputTimeInSeconds);
-
-// fs.writeFileSync("output.txt", result);

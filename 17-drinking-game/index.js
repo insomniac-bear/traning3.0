@@ -96,8 +96,8 @@ const game = (player1, player2) => {
 
 let cards = fs.readFileSync('input.txt', 'utf8').toString().trim().split('\n');
 
-const player1 = new Queue(cards[0].split(' ').map(it => Number(it)));
-const player2 = new Queue(cards[1].split(' ').map(it => Number(it)));
+const player1 = new Queue(cards[0].trim().split(' ').map(it => Number(it)));
+const player2 = new Queue(cards[1].trim().split(' ').map(it => Number(it)));
 
 let result = game(player1, player2);
 fs.writeFileSync("output.txt", result.toString());
